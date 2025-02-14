@@ -22,7 +22,7 @@ export async function createTodo(
     return res.json(); // expected { todo: {...} }
 }
 
-async function updateTodo(todoId: string, title: string, status: string, deadline: string) {
+export async function updateTodo(todoId: string, title: string, status: string, deadline: string) {
     const res = await fetch(`/api/todos/${todoId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
