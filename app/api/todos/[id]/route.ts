@@ -7,7 +7,7 @@ export async function PUT(
 ) {
     try {
         const { title, status, deadline } = await request.json();
-        const todoId = params.id;
+        const {id: todoId} = await params;
 
         const supabase = await createClient();
         const { data, error } = await supabase
@@ -33,7 +33,7 @@ export async function PATCH(
 ) {
     try {
         const { completed } = await request.json();
-        const todoId = params.id;
+        const {id: todoId} = await params;
 
         const supabase = await createClient();
         const { data, error } = await supabase
@@ -58,7 +58,7 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const todoId = params.id;
+        const {id: todoId} = await params;
 
         const supabase = await createClient();
         const { data, error } = await supabase
