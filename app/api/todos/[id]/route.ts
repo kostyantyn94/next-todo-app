@@ -1,15 +1,15 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse, NextRequest } from "next/server";
 
-
-type Context = { params: { id: string } };
-
-export async function PUT(request: NextRequest, context: Context) {
+export async function PUT(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
         const { title, status, deadline } = await request.json();
-        const { id: todoId } = context.params;
+        const todoId = params.id;
 
-        const supabase = await createClient();
+        const supabase = createClient();
         const { data, error } = await supabase
             .from("todos")
             .update({ title, status, deadline })
@@ -27,12 +27,15 @@ export async function PUT(request: NextRequest, context: Context) {
     }
 }
 
-export async function PATCH(request: NextRequest, context: Context) {
+export async function PATCH(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
         const { completed } = await request.json();
-        const { id: todoId } = context.params;
+        const todoId = params.id;
 
-        const supabase = await createClient();
+        const supabase = createClient();
         const { data, error } = await supabase
             .from("todos")
             .update({ completed })
@@ -50,11 +53,14 @@ export async function PATCH(request: NextRequest, context: Context) {
     }
 }
 
-export async function DELETE(request: NextRequest, context: Context) {
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
-        const { id: todoId } = context.params;
+        const todoId = params.id;
 
-        const supabase = await createClient();
+        const supabase = createClient();
         const { data, error } = await supabase
             .from("todos")
             .delete()
