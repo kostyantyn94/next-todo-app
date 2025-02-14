@@ -3,13 +3,13 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const { title, status, deadline } = await request.json();
         const todoId = params.id;
 
-        const supabase = createClient();
+        const supabase = await createClient();
         const { data, error } = await supabase
             .from("todos")
             .update({ title, status, deadline })
@@ -29,13 +29,13 @@ export async function PUT(
 
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const { completed } = await request.json();
         const todoId = params.id;
 
-        const supabase = createClient();
+        const supabase = await createClient();
         const { data, error } = await supabase
             .from("todos")
             .update({ completed })
@@ -55,12 +55,12 @@ export async function PATCH(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const todoId = params.id;
 
-        const supabase = createClient();
+        const supabase = await createClient();
         const { data, error } = await supabase
             .from("todos")
             .delete()
