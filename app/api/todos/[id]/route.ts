@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function PUT(
     request: NextRequest,
-    context: { params: { id: string } }
+    context: { params: Record<string, string> }
 ) {
     const { title, status, deadline } = await request.json();
     const todoId = context.params.id;
@@ -22,7 +22,7 @@ export async function PUT(
 
 export async function PATCH(
     request: NextRequest,
-    context: { params: { id: string } }
+    context: { params: Record<string, string> }
 ) {
     const { completed } = await request.json();
     const todoId = context.params.id;
@@ -41,7 +41,7 @@ export async function PATCH(
 
 export async function DELETE(
     request: NextRequest,
-    context: { params: { id: string } }
+    context: { params: Record<string, string> }
 ) {
     const todoId = context.params.id;
     const supabase = await createClient();
